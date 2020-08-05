@@ -2,7 +2,6 @@
 
 namespace Neoflow\Data\Test;
 
-
 use Neoflow\Data\Data;
 use Neoflow\Data\Exception\InvalidDataException;
 use PHPUnit\Framework\TestCase;
@@ -141,5 +140,4 @@ class DataTest extends TestCase
     {
         $this->assertIsArray($this->data->toArray());
     }
-
 }

@@ -8,6 +8,20 @@ use ArrayAccess;
 interface DataInterface
 {
     /**
+     * Count number of values in data.
+     *
+     * @return int
+     */
+    public function countValues(): int;
+
+    /**
+     * Delete value by key from data.
+     *
+     * @param string $key Key as identifier of the value
+     */
+    public function deleteValue(string $key): void;
+
+    /**
      * Get value by key from data.
      *
      * @param string $key Key as identifier of the value
@@ -19,13 +33,6 @@ interface DataInterface
     public function getValue(string $key, $default = null, bool $delete = false);
 
     /**
-     * Delete value by key from data.
-     *
-     * @param string $key Key as identifier of the value
-     */
-    public function deleteValue(string $key): void;
-
-    /**
      * Check whether value exists by key in data.
      *
      * @param string $key Key as identifier of the value
@@ -33,24 +40,6 @@ interface DataInterface
      * @return bool
      */
     public function hasValue(string $key): bool;
-
-    /**
-     * Count number of values in data.
-     *
-     * @return int
-     */
-    public function countValues(): int;
-
-    /**
-     * Set value by key into data.
-     *
-     * @param string $key Key as identifier of the value
-     * @param mixed $value Value to add into data
-     * @param bool $overwrite Set FALSE to prevent overwrite existing value
-     *
-     * @return self
-     */
-    public function setValue(string $key, $value, bool $overwrite = true): self;
 
     /**
      * Merge data. Existing values with similar keys will be overwritten.
@@ -79,6 +68,17 @@ interface DataInterface
      * @return self
      */
     public function setReference(&$data): self;
+
+    /**
+     * Set value by key into data.
+     *
+     * @param string $key Key as identifier of the value
+     * @param mixed $value Value to add into data
+     * @param bool $overwrite Set FALSE to prevent overwrite existing value
+     *
+     * @return self
+     */
+    public function setValue(string $key, $value, bool $overwrite = true): self;
 
     /**
      * Get data as array.

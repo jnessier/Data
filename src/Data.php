@@ -3,7 +3,6 @@
 
 namespace Neoflow\Data;
 
-
 use ArrayAccess;
 use Neoflow\Data\Exception\InvalidDataException;
 
@@ -57,6 +56,7 @@ class Data implements DataInterface
             if ($delete) {
                 $this->deleteValue($key);
             }
+
             return $value;
         }
 
@@ -91,18 +91,6 @@ class Data implements DataInterface
 
     /**
      * {@inheritDoc}
-     */
-    public function setValue(string $key, $value, bool $overwrite = true): DataInterface
-    {
-        if ($overwrite || !$this->hasValue($key)) {
-            $this->data[$key] = $value;
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
      *
      * @throws InvalidDataException
      */
@@ -130,13 +118,25 @@ class Data implements DataInterface
     /**
      * {@inheritDoc}
      */
+    public function setValue(string $key, $value, bool $overwrite = true): DataInterface
+    {
+        if ($overwrite || !$this->hasValue($key)) {
+            $this->data[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function toArray(): array
     {
         return (array)$this->data;
     }
 
     /**
-     * Resolve data.
+     * Validate data.
      *
      * @param ArrayAccess|array $data Data to validate
      *
@@ -149,7 +149,7 @@ class Data implements DataInterface
         if (!is_array($data) && !$data instanceof ArrayAccess) {
             throw new InvalidDataException();
         }
+
         return $data;
     }
-
 }
