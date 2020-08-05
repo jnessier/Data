@@ -41,6 +41,16 @@ class DataTest extends TestCase
         $this->assertFalse($this->data->hasValue('a'));
     }
 
+    public function testEach(): void
+    {
+        $this->data->each(
+            function ($value, $key) {
+                $this->assertArrayHasKey($key, $this->data->toArray());
+                $this->assertContains($value, $this->data->toArray());
+            }
+        );
+    }
+
     public function testGetValue(): void
     {
         $this->assertSame('A', $this->data->getValue('a', null, true));

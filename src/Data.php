@@ -25,6 +25,16 @@ class Data implements DataInterface
     /**
      * {@inheritDoc}
      */
+    public function apply(callable $callback, array $args = [])
+    {
+        array_unshift($args, $this);
+
+        return call_user_func_array($callback, $args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function count(): int
     {
         return count((array)$this->values);
@@ -38,6 +48,18 @@ class Data implements DataInterface
         if ($this->hasValue($key)) {
             unset($this->values[$key]);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function each(callable $callback)
+    {
+        return $this->apply(function (self $data) use ($callback) {
+            $data = $data->toArray();
+
+            return array_walk($data, $callback);
+        });
     }
 
     /**
@@ -92,14 +114,6 @@ class Data implements DataInterface
     /**
      * {@inheritDoc}
      */
-    public function toArray(): array
-    {
-        return (array)$this->values;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setReference(array &$values): DataInterface
     {
         $this->values = &$values;
@@ -117,5 +131,13 @@ class Data implements DataInterface
         }
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray(): array
+    {
+        return (array)$this->values;
     }
 }
