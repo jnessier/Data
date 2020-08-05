@@ -29,9 +29,9 @@ class DataTest extends TestCase
         ]);
     }
 
-    public function testCountValues(): void
+    public function testCount(): void
     {
-        $this->assertSame(3, $this->data->countValues());
+        $this->assertSame(3, $this->data->count());
     }
 
     public function testDeleteValue(): void
@@ -54,9 +54,9 @@ class DataTest extends TestCase
         $this->assertFalse($this->data->hasValue('z'));
     }
 
-    public function testMergeData(): void
+    public function testMerge(): void
     {
-        $this->data->mergeData([
+        $this->data->merge([
             'a' => 'SpecialA',
             'c' => [
                 'c-c' => []
@@ -72,9 +72,9 @@ class DataTest extends TestCase
         ], $this->data->getValue('c'));
     }
 
-    public function testMergeDataRecursively(): void
+    public function testMergeRecursively(): void
     {
-        $this->data->mergeData([
+        $this->data->merge([
             'a' => 'SpecialA',
             'c' => [
                 'c-c' => []
@@ -103,13 +103,6 @@ class DataTest extends TestCase
         $this->assertSame([
             'a' => 'SpecialA'
         ], $this->data->toArray());
-    }
-
-    public function testSetInvalid(): void
-    {
-        $this->expectException(InvalidDataException::class);
-
-        $this->data->set('foobar');
     }
 
     public function testSetReference(): void

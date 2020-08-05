@@ -3,37 +3,31 @@
 
 namespace Neoflow\Data;
 
-use ArrayAccess;
-use Neoflow\Data\Exception\InvalidDataException;
-
 class Data implements DataInterface
 {
-
     /**
-     * @var ArrayAccess|array
+     * @var array
      */
-    protected $data = [];
+    protected $values = [];
 
     /**
      * Constructor.
      *
-     * @param ArrayAccess|array|null $data Initial data
-     *
-     * @throws InvalidDataException
+     * @param array|null $values Initial values
      */
-    public function __construct($data = null)
+    public function __construct(array $values = null)
     {
-        if (!is_null($data)) {
-            $this->data = $this->validateData($data);
+        if (!is_null($values)) {
+            $this->values = $values;
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public function countValues(): int
+    public function count(): int
     {
-        return count((array)$this->data);
+        return count((array)$this->values);
     }
 
     /**
@@ -42,7 +36,7 @@ class Data implements DataInterface
     public function deleteValue(string $key): void
     {
         if ($this->hasValue($key)) {
-            unset($this->data[$key]);
+            unset($this->values[$key]);
         }
     }
 
@@ -52,7 +46,7 @@ class Data implements DataInterface
     public function getValue(string $key, $default = null, bool $delete = false)
     {
         if ($this->hasValue($key)) {
-            $value = $this->data[$key];
+            $value = $this->values[$key];
             if ($delete) {
                 $this->deleteValue($key);
             }
@@ -68,22 +62,18 @@ class Data implements DataInterface
      */
     public function hasValue(string $key): bool
     {
-        return isset($this->data[$key]);
+        return isset($this->values[$key]);
     }
 
     /**
      * {@inheritDoc}
-     *
-     * @throws InvalidDataException
      */
-    public function mergeData($data, bool $recursive = true): DataInterface
+    public function merge(array $values, bool $recursive = true): DataInterface
     {
-        $data = $this->validateData($data);
-
         if ($recursive) {
-            $this->data = array_replace_recursive($this->data, $data);
+            $this->values = array_replace_recursive($this->values, $values);
         } else {
-            $this->data = array_replace($this->data, $data);
+            $this->values = array_replace($this->values, $values);
         }
 
         return $this;
@@ -91,26 +81,28 @@ class Data implements DataInterface
 
     /**
      * {@inheritDoc}
-     *
-     * @throws InvalidDataException
      */
-    public function set($data): DataInterface
+    public function set(array $values): DataInterface
     {
-        $this->data = $this->validateData($data);
+        $this->values = $values;
 
         return $this;
     }
 
     /**
      * {@inheritDoc}
-     *
-     * @throws InvalidDataException
      */
-    public function setReference(&$data): DataInterface
+    public function toArray(): array
     {
-        $data = $this->validateData($data);
+        return (array)$this->values;
+    }
 
-        $this->data = &$data;
+    /**
+     * {@inheritDoc}
+     */
+    public function setReference(array &$values): DataInterface
+    {
+        $this->values = &$values;
 
         return $this;
     }
@@ -121,35 +113,9 @@ class Data implements DataInterface
     public function setValue(string $key, $value, bool $overwrite = true): DataInterface
     {
         if ($overwrite || !$this->hasValue($key)) {
-            $this->data[$key] = $value;
+            $this->values[$key] = $value;
         }
 
         return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function toArray(): array
-    {
-        return (array)$this->data;
-    }
-
-    /**
-     * Validate data.
-     *
-     * @param ArrayAccess|array $data Data to validate
-     *
-     * @return ArrayAccess|array
-     *
-     * @throws InvalidDataException
-     */
-    protected function validateData($data)
-    {
-        if (!is_array($data) && !$data instanceof ArrayAccess) {
-            throw new InvalidDataException();
-        }
-
-        return $data;
     }
 }

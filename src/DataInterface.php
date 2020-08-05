@@ -3,26 +3,24 @@
 
 namespace Neoflow\Data;
 
-use ArrayAccess;
-
 interface DataInterface
 {
     /**
-     * Count number of values in data.
+     * Count number of values.
      *
      * @return int
      */
-    public function countValues(): int;
+    public function count(): int;
 
     /**
-     * Delete value by key from data.
+     * Delete value by key.
      *
      * @param string $key Key as identifier of the value
      */
     public function deleteValue(string $key): void;
 
     /**
-     * Get value by key from data.
+     * Get value by key.
      *
      * @param string $key Key as identifier of the value
      * @param mixed $default Default value, when key doesn't exists
@@ -33,7 +31,7 @@ interface DataInterface
     public function getValue(string $key, $default = null, bool $delete = false);
 
     /**
-     * Check whether value exists by key in data.
+     * Check whether value exists by key.
      *
      * @param string $key Key as identifier of the value
      *
@@ -42,38 +40,38 @@ interface DataInterface
     public function hasValue(string $key): bool;
 
     /**
-     * Merge data. Existing values with similar keys will be overwritten.
+     * Merge values. Existing values with similar keys will be overwritten.
      *
-     * @param ArrayAccess|array $data Data to merge
+     * @param array $values Values to merge
      * @param bool $recursive Set FALSE to prevent recursive merge
      *
      * @return self
      */
-    public function mergeData($data, bool $recursive = true): self;
+    public function merge(array $values, bool $recursive = true): self;
 
     /**
-     * Set data. Existing data will be overwritten.
+     * Set values. Existing values will be overwritten.
      *
-     * @param ArrayAccess|array $data Data to set
+     * @param array $values Values to set
      *
      * @return self
      */
-    public function set($data): self;
+    public function set(array $values): self;
 
     /**
-     * Set referenced data. Existing data will be overwritten.
+     * Set referenced values. Existing values will be overwritten.
      *
-     * @param ArrayAccess|array $data Data to set as reference
+     * @param array $values Values to set as reference
      *
      * @return self
      */
-    public function setReference(&$data): self;
+    public function setReference(array &$values): self;
 
     /**
-     * Set value by key into data.
+     * Set value by key.
      *
      * @param string $key Key as identifier of the value
-     * @param mixed $value Value to add into data
+     * @param mixed $value Value to set
      * @param bool $overwrite Set FALSE to prevent overwrite existing value
      *
      * @return self
@@ -81,7 +79,7 @@ interface DataInterface
     public function setValue(string $key, $value, bool $overwrite = true): self;
 
     /**
-     * Get data as array.
+     * Get values as array.
      *
      * @return array
      */
