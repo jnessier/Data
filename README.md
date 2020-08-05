@@ -5,7 +5,7 @@
 [![Total Downloads](https://poser.pugx.org/neoflow/data/downloads?service=github)](//packagist.org/packages/neoflow/data)
 [![License](https://poser.pugx.org/neoflow/data/license?service=github)](https://packagist.org/packages/neoflow/data)
 
-Data handler for arrays and ArrayAccess-implementations.
+Data handler for arrays.
 
 ## Table of Contents
 - [Requirement](#requirement)

@@ -1,6 +1,6 @@
 {
   "name": "neoflow/data",
-  "description": "Data handler for arrays and ArrayAccess-implementations.",
+  "description": "Data handler for arrays.",
   "license": "MIT",
   "minimum-stability": "stable",
   "authors": [
