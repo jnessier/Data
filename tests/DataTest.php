@@ -31,7 +31,7 @@ class DataTest extends TestCase
 
     public function testCount(): void
     {
-        $this->assertSame(3, $this->data->count());
+        $this->assertSame(3, $this->data->countValues());
     }
 
     public function testDeleteValue(): void
@@ -43,10 +43,10 @@ class DataTest extends TestCase
 
     public function testEach(): void
     {
-        $this->data->each(
+        $this->data->eachValue(
             function ($value, $key) {
-                $this->assertArrayHasKey($key, $this->data->toArray());
-                $this->assertContains($value, $this->data->toArray());
+                $this->assertArrayHasKey($key, $this->data->getValues());
+                $this->assertContains($value, $this->data->getValues());
             }
         );
     }
@@ -66,7 +66,7 @@ class DataTest extends TestCase
 
     public function testMerge(): void
     {
-        $this->data->merge([
+        $this->data->mergeValues([
             'a' => 'SpecialA',
             'c' => [
                 'c-c' => []
@@ -84,7 +84,7 @@ class DataTest extends TestCase
 
     public function testMergeRecursively(): void
     {
-        $this->data->merge([
+        $this->data->mergeValues([
             'a' => 'SpecialA',
             'c' => [
                 'c-c' => []
@@ -106,26 +106,13 @@ class DataTest extends TestCase
 
     public function testSet(): void
     {
-        $this->data->set([
+        $this->data->setValues([
             'a' => 'SpecialA'
         ]);
 
         $this->assertSame([
             'a' => 'SpecialA'
-        ], $this->data->toArray());
-    }
-
-    public function testSetReference(): void
-    {
-        $data = [
-            'a' => 'A'
-        ];
-
-        $this->data->setReference($data);
-
-        $this->data->setValue('a', 'SpecialA');
-
-        $this->assertSame($data, $this->data->toArray());
+        ], $this->data->getValues());
     }
 
     public function testSetValue(): void
@@ -139,8 +126,8 @@ class DataTest extends TestCase
         $this->assertSame('E', $this->data->getValue('e'));
     }
 
-    public function testToArray(): void
+    public function testgetValues(): void
     {
-        $this->assertIsArray($this->data->toArray());
+        $this->assertIsArray($this->data->getValues());
     }
 }

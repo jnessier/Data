@@ -5,22 +5,13 @@ namespace Neoflow\Data;
 
 interface DataInterface
 {
-    /**
-     * Apply callback.
-     *
-     * @param callable $callback Callback to apply
-     * @param array $args Additional arguments for the callback
-     *
-     * @return mixed
-     */
-    public function apply(callable $callback, array $args = []);
 
     /**
      * Count number of values.
      *
      * @return int
      */
-    public function count(): int;
+    public function countValues(): int;
 
     /**
      * Delete value by key.
@@ -35,7 +26,7 @@ interface DataInterface
      * @param callable $callback Callback for each value
      * @return mixed
      */
-    public function each(callable $callback);
+    public function eachValue(callable $callback);
 
     /**
      * Get value by key.
@@ -65,7 +56,7 @@ interface DataInterface
      *
      * @return self
      */
-    public function merge(array $values, bool $recursive = true): self;
+    public function mergeValues(array $values, bool $recursive = true): self;
 
     /**
      * Set values. Existing values will be overwritten.
@@ -74,16 +65,7 @@ interface DataInterface
      *
      * @return self
      */
-    public function set(array $values): self;
-
-    /**
-     * Set referenced values. Existing values will be overwritten.
-     *
-     * @param array $values Values to set referenced
-     *
-     * @return self
-     */
-    public function setReference(array &$values): self;
+    public function setValues(array $values): self;
 
     /**
      * Set value by key.
@@ -101,5 +83,5 @@ interface DataInterface
      *
      * @return array
      */
-    public function toArray(): array;
+    public function getValues(): array;
 }
