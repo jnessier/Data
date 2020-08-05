@@ -40,6 +40,13 @@ interface DataInterface
     public function getValue(string $key, $default = null, bool $delete = false);
 
     /**
+     * Get values as array.
+     *
+     * @return array
+     */
+    public function getValues(): array;
+
+    /**
      * Check whether value exists by key.
      *
      * @param string $key Key as identifier of the value
@@ -59,15 +66,6 @@ interface DataInterface
     public function mergeValues(array $values, bool $recursive = true): self;
 
     /**
-     * Set values. Existing values will be overwritten.
-     *
-     * @param array $values Values to set
-     *
-     * @return self
-     */
-    public function setValues(array $values): self;
-
-    /**
      * Set value by key.
      *
      * @param string $key Key as identifier of the value
@@ -79,9 +77,11 @@ interface DataInterface
     public function setValue(string $key, $value, bool $overwrite = true): self;
 
     /**
-     * Get values as array.
+     * Set values. Existing values will be overwritten.
      *
-     * @return array
+     * @param array $values Values to set
+     *
+     * @return self
      */
-    public function getValues(): array;
+    public function setValues(array $values): self;
 }

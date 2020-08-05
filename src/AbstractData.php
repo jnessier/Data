@@ -3,7 +3,6 @@
 
 namespace Neoflow\Data;
 
-
 abstract class AbstractData implements DataInterface
 {
     /**
@@ -59,6 +58,24 @@ abstract class AbstractData implements DataInterface
     /**
      * {@inheritDoc}
      */
+    public function getValues(): array
+    {
+        return (array)$this->values;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setValues(array $values): DataInterface
+    {
+        $this->values = $values;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function hasValue(string $key): bool
     {
         return isset($this->values[$key]);
@@ -81,16 +98,6 @@ abstract class AbstractData implements DataInterface
     /**
      * {@inheritDoc}
      */
-    public function setValues(array $values): DataInterface
-    {
-        $this->values = $values;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setValue(string $key, $value, bool $overwrite = true): DataInterface
     {
         if ($overwrite || !$this->hasValue($key)) {
@@ -98,13 +105,5 @@ abstract class AbstractData implements DataInterface
         }
 
         return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getValues(): array
-    {
-        return (array)$this->values;
     }
 }
