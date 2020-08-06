@@ -7,6 +7,11 @@ interface DataInterface
 {
 
     /**
+     * Clear values.
+     */
+    public function clearValues(): void;
+
+    /**
      * Count number of values.
      *
      * @return int
@@ -40,15 +45,6 @@ interface DataInterface
     public function getValue(string $key, $default = null);
 
     /**
-     * Pull value by key and delete it afterwards.
-     *
-     * @param string $key Key as identifier of the value
-     * @param mixed $default Default value, when key doesn't exists
-     * @return mixed
-     */
-    public function pullValue(string $key, $default = null);
-
-    /**
      * Get values as array.
      *
      * @return array
@@ -63,6 +59,16 @@ interface DataInterface
      * @return bool
      */
     public function hasValue(string $key): bool;
+
+    /**
+     * Pull value by key and delete it afterwards.
+     *
+     * @param string $key Key as identifier of the value
+     * @param mixed $default Default value, when key doesn't exists
+     *
+     * @return mixed
+     */
+    public function pullValue(string $key, $default = null);
 
     /**
      * Replace values by key. Existing values with similar keys will be overwritten.

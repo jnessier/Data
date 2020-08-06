@@ -28,6 +28,13 @@ class DataTest extends TestCase
         ]);
     }
 
+    public function testClearValues(): void
+    {
+        $this->data->clearValues();
+
+        $this->assertSame([], $this->data->getValues());
+    }
+
     public function testCount(): void
     {
         $this->assertSame(3, $this->data->countValues());
@@ -56,12 +63,6 @@ class DataTest extends TestCase
         $this->assertSame('default', $this->data->getValue('z', 'default'));
     }
 
-    public function testPullValue(): void
-    {
-        $this->assertSame('A', $this->data->pullValue('a'));
-        $this->assertSame('default', $this->data->pullValue('a', 'default'));
-    }
-
     public function testGetValues(): void
     {
         $this->assertIsArray($this->data->getValues());
@@ -71,6 +72,12 @@ class DataTest extends TestCase
     {
         $this->assertTrue($this->data->hasValue('a'));
         $this->assertFalse($this->data->hasValue('z'));
+    }
+
+    public function testPullValue(): void
+    {
+        $this->assertSame('A', $this->data->pullValue('a'));
+        $this->assertSame('default', $this->data->pullValue('a', 'default'));
     }
 
     public function testReplaceValues(): void
@@ -113,20 +120,6 @@ class DataTest extends TestCase
         ], $this->data->getValue('c'));
     }
 
-    public function testSetValues(): void
-    {
-        $values = [
-            'a' => 'A'
-        ];
-        $this->data->setValues($values);
-        $this->data->setValue('a', 'SpecialA');
-
-        $this->assertNotSame($values, $this->data->getValues());
-        $this->assertSame([
-            'a' => 'SpecialA'
-        ], $this->data->getValues());
-    }
-
     public function testSetReferencedValues(): void
     {
         $values = [
@@ -147,5 +140,19 @@ class DataTest extends TestCase
 
         $this->assertSame('D', $this->data->getValue('d'));
         $this->assertSame('E', $this->data->getValue('e'));
+    }
+
+    public function testSetValues(): void
+    {
+        $values = [
+            'a' => 'A'
+        ];
+        $this->data->setValues($values);
+        $this->data->setValue('a', 'SpecialA');
+
+        $this->assertNotSame($values, $this->data->getValues());
+        $this->assertSame([
+            'a' => 'SpecialA'
+        ], $this->data->getValues());
     }
 }

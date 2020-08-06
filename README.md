@@ -63,6 +63,9 @@ $data->eachValue(function ($value, string $key) {
     // Callback for each key/value pair
 });
 
+// Clear values.
+$data = $data->clearValues();
+
 // Replace values. Existing values with similar keys will be overwritten.
 $recursive = true; // Set FALSE to prevent recursive merge
 $data = $data->replaceValues([

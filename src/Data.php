@@ -29,7 +29,7 @@ class Data implements DataInterface
      *
      * @return self
      */
-    public function setReferencedValues(array &$values): Data
+    public function setReferencedValues(array &$values): self
     {
         $this->values = &$values;
 

@@ -13,6 +13,14 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
+    public function clearValues(): void
+    {
+        $this->values = [];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function countValues(): int
     {
         return count((array)$this->values);
@@ -56,20 +64,6 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function pullValue(string $key, $default = null)
-    {
-        if ($this->hasValue($key)) {
-            $value = $this->getValue($key);
-            $this->deleteValue($key);
-            return $value;
-        }
-
-        return $default;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getValues(): array
     {
         return (array)$this->values;
@@ -91,6 +85,20 @@ trait DataTrait
     public function hasValue(string $key): bool
     {
         return isset($this->values[$key]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function pullValue(string $key, $default = null)
+    {
+        if ($this->hasValue($key)) {
+            $value = $this->getValue($key);
+            $this->deleteValue($key);
+            return $value;
+        }
+
+        return $default;
     }
 
     /**
