@@ -81,6 +81,15 @@ interface DataInterface
     public function replaceValues(array $values, bool $recursive = true): DataInterface;
 
     /**
+     * Set referenced array as values. Existing values will be overwritten.
+     *
+     * @param array $values Array with key/value pairs
+     *
+     * @return self
+     */
+    public function setReferencedValues(array &$values): DataInterface;
+
+    /**
      * Set value by key.
      *
      * @param string $key Key as identifier of the value

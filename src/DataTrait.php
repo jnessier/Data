@@ -118,6 +118,16 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
+    public function setReferencedValues(array &$values): self
+    {
+        $this->values = &$values;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setValue(string $key, $value, bool $overwrite = true): DataInterface
     {
         if ($overwrite || !$this->hasValue($key)) {

@@ -21,18 +21,4 @@ class Data implements DataInterface
             $this->setValues($values);
         }
     }
-
-    /**
-     * Set referenced array as values. Existing values will be overwritten.
-     *
-     * @param array $values Array with key/value pairs
-     *
-     * @return self
-     */
-    public function setReferencedValues(array &$values): self
-    {
-        $this->values = &$values;
-
-        return $this;
-    }
 }
