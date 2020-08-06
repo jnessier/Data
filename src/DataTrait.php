@@ -118,7 +118,7 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function setReferencedValues(array &$values): self
+    public function setReferencedValues(array &$values): DataInterface
     {
         $this->values = &$values;
 
