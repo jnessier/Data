@@ -1,10 +1,10 @@
-name: PHP Composer
+name: Test (PHP)
 
 on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master ]
+    paths: [ '**.php' ]
 
 jobs:
   phpunit:
@@ -12,27 +12,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+          ref: ${{ github.head_ref }}
 
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
     - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
-
-    - name: PHP-CS-Fixer
-      uses: OskarStark/php-cs-fixer-ga@2.16.1.2
-      with:
-        args: --diff --dry-run
+      run: composer install
 
     - name: Run test suite
       run: vendor/bin/phpunit --coverage-clover clover.xml
