@@ -3,7 +3,7 @@
 
 namespace Neoflow\Data;
 
-abstract class AbstractData implements DataInterface
+trait DataTrait
 {
     /**
      * @var array
@@ -31,24 +31,36 @@ abstract class AbstractData implements DataInterface
     /**
      * {@inheritDoc}
      */
-    public function eachValue(callable $callback)
+    public function eachValue(callable $callback): void
     {
-        $values = $this->values;
-
-        return array_walk($values, $callback);
+        foreach ($this->values as $key => $value) {
+            call_user_func_array($callback, [
+                $value,
+                $key
+            ]);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getValue(string $key, $default = null, bool $delete = false)
+    public function getValue(string $key, $default = null)
     {
         if ($this->hasValue($key)) {
-            $value = $this->values[$key];
-            if ($delete) {
-                $this->deleteValue($key);
-            }
+            return $this->values[$key];
+        }
 
+        return $default;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function pullValue(string $key, $default = null)
+    {
+        if ($this->hasValue($key)) {
+            $value = $this->getValue($key);
+            $this->deleteValue($key);
             return $value;
         }
 
@@ -84,7 +96,7 @@ abstract class AbstractData implements DataInterface
     /**
      * {@inheritDoc}
      */
-    public function mergeValues(array $values, bool $recursive = true): DataInterface
+    public function replaceValues(array $values, bool $recursive = true): DataInterface
     {
         if ($recursive) {
             $this->values = array_replace_recursive($this->values, $values);

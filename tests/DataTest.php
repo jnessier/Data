@@ -3,7 +3,6 @@
 namespace Neoflow\Data\Test;
 
 use Neoflow\Data\Data;
-use Neoflow\Data\Exception\InvalidDataException;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
@@ -43,19 +42,29 @@ class DataTest extends TestCase
 
     public function testEach(): void
     {
-        $this->data->eachValue(
-            function ($value, $key) {
-                $this->assertArrayHasKey($key, $this->data->getValues());
-                $this->assertContains($value, $this->data->getValues());
-            }
-        );
+        $foobar = 'foobar';
+        $this->data->eachValue(function ($value, string $key) use ($foobar) {
+            $this->assertArrayHasKey($key, $this->data->getValues());
+            $this->assertContains($value, $this->data->getValues());
+            $this->assertSame('foobar', $foobar);
+        });
     }
 
     public function testGetValue(): void
     {
-        $this->assertSame('A', $this->data->getValue('a', null, true));
-        $this->assertFalse($this->data->hasValue('a'));
+        $this->assertSame('A', $this->data->getValue('a'));
         $this->assertSame('default', $this->data->getValue('z', 'default'));
+    }
+
+    public function testPullValue(): void
+    {
+        $this->assertSame('A', $this->data->pullValue('a'));
+        $this->assertSame('default', $this->data->pullValue('a', 'default'));
+    }
+
+    public function testGetValues(): void
+    {
+        $this->assertIsArray($this->data->getValues());
     }
 
     public function testHasValue(): void
@@ -64,9 +73,9 @@ class DataTest extends TestCase
         $this->assertFalse($this->data->hasValue('z'));
     }
 
-    public function testMerge(): void
+    public function testReplaceValues(): void
     {
-        $this->data->mergeValues([
+        $this->data->replaceValues([
             'a' => 'SpecialA',
             'c' => [
                 'c-c' => []
@@ -82,9 +91,9 @@ class DataTest extends TestCase
         ], $this->data->getValue('c'));
     }
 
-    public function testMergeRecursively(): void
+    public function testReplaceValuesRecursively(): void
     {
-        $this->data->mergeValues([
+        $this->data->replaceValues([
             'a' => 'SpecialA',
             'c' => [
                 'c-c' => []
@@ -104,15 +113,29 @@ class DataTest extends TestCase
         ], $this->data->getValue('c'));
     }
 
-    public function testSet(): void
+    public function testSetValues(): void
     {
-        $this->data->setValues([
-            'a' => 'SpecialA'
-        ]);
+        $values = [
+            'a' => 'A'
+        ];
+        $this->data->setValues($values);
+        $this->data->setValue('a', 'SpecialA');
 
+        $this->assertNotSame($values, $this->data->getValues());
         $this->assertSame([
             'a' => 'SpecialA'
         ], $this->data->getValues());
+    }
+
+    public function testSetReferencedValues(): void
+    {
+        $values = [
+            'a' => 'A'
+        ];
+        $this->data->setReferencedValues($values);
+        $this->data->setValue('a', 'SpecialA');
+
+        $this->assertSame($values, $this->data->getValues());
     }
 
     public function testSetValue(): void
@@ -124,10 +147,5 @@ class DataTest extends TestCase
 
         $this->assertSame('D', $this->data->getValue('d'));
         $this->assertSame('E', $this->data->getValue('e'));
-    }
-
-    public function testgetValues(): void
-    {
-        $this->assertIsArray($this->data->getValues());
     }
 }

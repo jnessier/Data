@@ -11,6 +11,7 @@ Data handler for arrays.
 - [Requirement](#requirement)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Limitations](#limitations)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -18,62 +19,73 @@ Data handler for arrays.
 * PHP >= 7.3
 
 ## Installation
-You have 2 options to install this library.
-
-Via Composer:
+Install package of the data handler via Composer...
 ```bash
 composer require neoflow/data
 ```
-
-Or manually add this line to the `require` block in your `composer.json`:
-```json
-"neoflow/data": "^0.0.1"
-```
+...or manually download the latest release from [here](https://github.com/Neoflow/Data/releases/).
 
 ## Usage
-Examples how to use the data handler.
 ```php
+use Neoflow\Data\Data;
+
 // Create new data handler.
 $data = new Data([
-    // Initial data
+    // Array with key/value pairs
 ]);
 
-// Get value by key from data.
-$value = $data->getValue('key');
-
-// Delete value by key from data.
-$data->deleteValue('key');
-
-// Check whether value exists by key in data.
-$valueExists = $data->hasValue('key');
+// Get value by key.
+$default = null; // Default value, when key doesn't exists
+$value = $data->getValue('key', $default);
    
-// Count number of values in data.
-$numberOfValues = $data->countValues();
-   
-// Set value by key into data.
+// Pull value by key and delete it afterwards.
+$default = null; // Default value, when key doesn't exists
+$value = $data->pullValue('key', $default);
+
+// Set value by key.
 $overwrite = true; // Set FALSE to prevent overwrite existing value
 $data = $data->setValue('key', 'value', $overwrite);
 
-// Merge data. Existing values with similar keys will be overwritten.
+// Check whether value exists by key.
+$valueExists = $data->hasValue('key');
+   
+// Delete value by key.
+$data->deleteValue('key');
+
+// Count number of values.
+$numberOfValues = $data->countValues();
+
+// Get values as array.
+$array = $data->getValues();
+
+// Iterate trough values.
+$data->eachValue(function ($value, string $key) {
+    // Callback for each key/value pair
+});
+
+// Replace values. Existing values with similar keys will be overwritten.
 $recursive = true; // Set FALSE to prevent recursive merge
-$data = $data->mergeData([
-    // Data to merge
+$data = $data->replaceValues([
+    // Array with key/value pairs
 ], $recursive);
 
-// Set data. Existing data will be overwritten.
-$data = $data->set([
-    // Data to set
+// Set array as values. Existing data will be overwritten.
+$data = $data->setValues([
+    // Array with key/value pairs
 ]);
 
-// Set referenced data. Existing data will be overwritten.
-$newData = [
-    // Data to set as reference
+// Set referenced array as values. Existing data will be overwritten.
+$values = [
+    // Array with key/value pairs
 ];
-$data = $data->setReference($newData);
-
-// Get data as array.
-$array = $data->toArray();
+$data = $data->setReferencedValues($values);
 ```
+
+## Limitations
+* Only string as key supported
+* Only array as key/value pairs supported
+* No dot notation implementation
+* No type check for values
 
 ## Contributors
 * Jonathan Nessier, [Neoflow](https://www.neoflow.ch)
@@ -84,7 +96,6 @@ If you would like to see this library develop further, or if you want to support
 [![Donate](https://img.shields.io/badge/Donate-paypal-blue)](https://www.paypal.me/JonathanNessier)
 
 ## License
-
 Licensed under [MIT](LICENSE). 
 
 *Made in Switzerland with :cheese: and :heart:*

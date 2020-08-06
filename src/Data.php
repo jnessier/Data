@@ -3,17 +3,36 @@
 
 namespace Neoflow\Data;
 
-class Data extends AbstractData
+class Data implements DataInterface
 {
+    /**
+     * Traits
+     */
+    use DataTrait;
+
     /**
      * Constructor.
      *
-     * @param array|null $values Initial values
+     * @param array|null $values Array with key/value pairs
      */
     public function __construct(array $values = null)
     {
         if (!is_null($values)) {
-            $this->values = $values;
+            $this->setValues($values);
         }
+    }
+
+    /**
+     * Set referenced array as values. Existing values will be overwritten.
+     *
+     * @param array $values Array with key/value pairs
+     *
+     * @return self
+     */
+    public function setReferencedValues(array &$values): Data
+    {
+        $this->values = &$values;
+
+        return $this;
     }
 }

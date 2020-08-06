@@ -21,23 +21,32 @@ interface DataInterface
     public function deleteValue(string $key): void;
 
     /**
-     * Iterate trough each value
+     * Iterate trough values.
      *
-     * @param callable $callback Callback for each value
+     * @param callable $callback Callback for each key/value pair
+     *
      * @return mixed
      */
-    public function eachValue(callable $callback);
+    public function eachValue(callable $callback): void;
 
     /**
      * Get value by key.
      *
      * @param string $key Key as identifier of the value
      * @param mixed $default Default value, when key doesn't exists
-     * @param bool $delete Set TRUE to delete value afterwards
      *
      * @return mixed
      */
-    public function getValue(string $key, $default = null, bool $delete = false);
+    public function getValue(string $key, $default = null);
+
+    /**
+     * Pull value by key and delete it afterwards.
+     *
+     * @param string $key Key as identifier of the value
+     * @param mixed $default Default value, when key doesn't exists
+     * @return mixed
+     */
+    public function pullValue(string $key, $default = null);
 
     /**
      * Get values as array.
@@ -56,14 +65,14 @@ interface DataInterface
     public function hasValue(string $key): bool;
 
     /**
-     * Merge values. Existing values with similar keys will be overwritten.
+     * Replace values by key. Existing values with similar keys will be overwritten.
      *
-     * @param array $values Values to merge
+     * @param array $values Array with key/value pairs
      * @param bool $recursive Set TRUE to enable recursive merge
      *
      * @return self
      */
-    public function mergeValues(array $values, bool $recursive = true): self;
+    public function replaceValues(array $values, bool $recursive = true): DataInterface;
 
     /**
      * Set value by key.
@@ -74,14 +83,14 @@ interface DataInterface
      *
      * @return self
      */
-    public function setValue(string $key, $value, bool $overwrite = true): self;
+    public function setValue(string $key, $value, bool $overwrite = true): DataInterface;
 
     /**
-     * Set values. Existing values will be overwritten.
+     * Set array as values. Existing values will be overwritten.
      *
-     * @param array $values Values to set
+     * @param array $values Array with key/value pairs
      *
      * @return self
      */
-    public function setValues(array $values): self;
+    public function setValues(array $values): DataInterface;
 }
