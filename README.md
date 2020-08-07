@@ -36,58 +36,58 @@ $data = new Data([
 
 // Get value by key.
 $default = null; // Default value, when key doesn't exists
-$value = $data->getValue('key', $default);
+$value = $data->get('key', $default);
    
 // Pull value by key and delete it afterwards.
 $default = null; // Default value, when key doesn't exists
-$value = $data->pullValue('key', $default);
+$value = $data->pull('key', $default);
 
 // Set value by key.
 $overwrite = true; // Set FALSE to prevent overwrite existing value
-$data = $data->setValue('key', 'value', $overwrite);
+$data = $data->set('key', 'value', $overwrite);
 
 // Check whether value exists by key.
-$valueExists = $data->hasValue('key');
+$valueExists = $data->has('key');
    
 // Delete value by key.
-$data->deleteValue('key');
+$data->delete('key');
 
-// Count number of values.
-$numberOfValues = $data->countValues();
+// Count number of all values.
+$numberOfValues = $data->countAll();
 
-// Get values as array.
-$array = $data->getValues();
+// Get all values as array.
+$array = $data->getAll();
 
 // Iterate trough values.
-$data->eachValue(function ($value, string $key) {
+$data->each(function ($value, string $key) {
     // Callback for each key/value pair
 });
 
-// Clear values.
-$data = $data->clearValues();
+// Clear all values.
+$data = $data->clearAll();
 
-// Replace values. Existing values with similar keys will be overwritten.
+// Replace all values with array. Existing values with similar keys will be overwritten.
 $recursive = true; // Set FALSE to prevent recursive merge
-$data = $data->replaceValues([
+$data = $data->replaceAll([
     // Array with key/value pairs
 ], $recursive);
 
-// Set array as values. Existing data will be overwritten.
-$data = $data->setValues([
+// Set array for all values. Existing data will be overwritten.
+$data = $data->setAll([
     // Array with key/value pairs
 ]);
 
-// Set referenced array as values. Existing data will be overwritten.
+// Set referenced array for all values. Existing data will be overwritten.
 $values = [
     // Array with key/value pairs
 ];
-$data = $data->setReferencedValues($values);
+$data = $data->setAllReferenced($values);
 ```
 
 ## Limitations
 * Only string as key supported
 * Only array as key/value pairs supported
-* No dot notation implementation
+* No dot notation implemented
 * No type check for values
 
 ## Contributors

@@ -18,7 +18,7 @@ class Data implements DataInterface
     public function __construct(array $values = null)
     {
         if (!is_null($values)) {
-            $this->setValues($values);
+            $this->setAll($values);
         }
     }
 }
