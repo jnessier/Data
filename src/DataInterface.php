@@ -5,26 +5,25 @@ namespace Neoflow\Data;
 
 interface DataInterface
 {
-    /**
-     * Clear all values.
-     *
-     * @return self
-     */
-    public function clearAll(): DataInterface;
 
     /**
-     * Count number of all values.
+     * Clear values.
+     */
+    public function clearValues(): void;
+
+    /**
+     * Count number of values.
      *
      * @return int
      */
-    public function countAll(): int;
+    public function countValues(): int;
 
     /**
      * Delete value by key.
      *
      * @param string $key Key as identifier of the value
      */
-    public function delete(string $key): void;
+    public function deleteValue(string $key): void;
 
     /**
      * Iterate trough values.
@@ -33,7 +32,7 @@ interface DataInterface
      *
      * @return mixed
      */
-    public function each(callable $callback): void;
+    public function eachValue(callable $callback): void;
 
     /**
      * Get value by key.
@@ -43,14 +42,14 @@ interface DataInterface
      *
      * @return mixed
      */
-    public function get(string $key, $default = null);
+    public function getValue(string $key, $default = null);
 
     /**
-     * Get all values as array.
+     * Get values as array.
      *
      * @return array
      */
-    public function getAll(): array;
+    public function getValues(): array;
 
     /**
      * Check whether value exists by key.
@@ -59,7 +58,7 @@ interface DataInterface
      *
      * @return bool
      */
-    public function has(string $key): bool;
+    public function hasValue(string $key): bool;
 
     /**
      * Pull value by key and delete it afterwards.
@@ -69,17 +68,26 @@ interface DataInterface
      *
      * @return mixed
      */
-    public function pull(string $key, $default = null);
+    public function pullValue(string $key, $default = null);
 
     /**
-     * Replace all values with array. Existing values with similar keys will be overwritten.
+     * Replace values by key. Existing values with similar keys will be overwritten.
      *
      * @param array $values Array with key/value pairs
      * @param bool $recursive Set TRUE to enable recursive merge
      *
      * @return self
      */
-    public function replaceAll(array $values, bool $recursive = true): DataInterface;
+    public function replaceValues(array $values, bool $recursive = true): DataInterface;
+
+    /**
+     * Set referenced array as values. Existing values will be overwritten.
+     *
+     * @param array $values Array with key/value pairs
+     *
+     * @return self
+     */
+    public function setReferencedValues(array &$values): DataInterface;
 
     /**
      * Set value by key.
@@ -90,23 +98,14 @@ interface DataInterface
      *
      * @return self
      */
-    public function set(string $key, $value, bool $overwrite = true): DataInterface;
+    public function setValue(string $key, $value, bool $overwrite = true): DataInterface;
 
     /**
-     * Set array for all values. Existing values will be overwritten.
+     * Set array as values. Existing values will be overwritten.
      *
      * @param array $values Array with key/value pairs
      *
      * @return self
      */
-    public function setAll(array $values): DataInterface;
-
-    /**
-     * Set referenced array for all values. Existing values will be overwritten.
-     *
-     * @param array $values Array with key/value pairs
-     *
-     * @return self
-     */
-    public function setAllReferenced(array &$values): DataInterface;
+    public function setValues(array $values): DataInterface;
 }

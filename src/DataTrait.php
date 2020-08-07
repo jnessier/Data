@@ -13,17 +13,15 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function clearAll(): DataInterface
+    public function clearValues(): void
     {
         $this->values = [];
-
-        return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function countAll(): int
+    public function countValues(): int
     {
         return count((array)$this->values);
     }
@@ -31,9 +29,9 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function delete(string $key): void
+    public function deleteValue(string $key): void
     {
-        if ($this->has($key)) {
+        if ($this->hasValue($key)) {
             unset($this->values[$key]);
         }
     }
@@ -41,7 +39,7 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function each(callable $callback): void
+    public function eachValue(callable $callback): void
     {
         foreach ($this->values as $key => $value) {
             call_user_func_array($callback, [
@@ -54,9 +52,9 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function get(string $key, $default = null)
+    public function getValue(string $key, $default = null)
     {
-        if ($this->has($key)) {
+        if ($this->hasValue($key)) {
             return $this->values[$key];
         }
 
@@ -66,7 +64,7 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function getAll(): array
+    public function getValues(): array
     {
         return (array)$this->values;
     }
@@ -74,7 +72,17 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function has(string $key): bool
+    public function setValues(array $values): DataInterface
+    {
+        $this->values = $values;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasValue(string $key): bool
     {
         return isset($this->values[$key]);
     }
@@ -82,11 +90,11 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function pull(string $key, $default = null)
+    public function pullValue(string $key, $default = null)
     {
-        if ($this->has($key)) {
-            $value = $this->get($key);
-            $this->delete($key);
+        if ($this->hasValue($key)) {
+            $value = $this->getValue($key);
+            $this->deleteValue($key);
             return $value;
         }
 
@@ -96,7 +104,7 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function replaceAll(array $values, bool $recursive = true): DataInterface
+    public function replaceValues(array $values, bool $recursive = true): DataInterface
     {
         if ($recursive) {
             $this->values = array_replace_recursive($this->values, $values);
@@ -110,31 +118,21 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function set(string $key, $value, bool $overwrite = true): DataInterface
-    {
-        if ($overwrite || !$this->has($key)) {
-            $this->values[$key] = $value;
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setAll(array $values): DataInterface
-    {
-        $this->values = $values;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setAllReferenced(array &$values): DataInterface
+    public function setReferencedValues(array &$values): DataInterface
     {
         $this->values = &$values;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setValue(string $key, $value, bool $overwrite = true): DataInterface
+    {
+        if ($overwrite || !$this->hasValue($key)) {
+            $this->values[$key] = $value;
+        }
 
         return $this;
     }
