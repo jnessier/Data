@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Neoflow\Data;
 
 trait DataTrait
@@ -8,12 +7,12 @@ trait DataTrait
     /**
      * @var array
      */
-    protected $values = [];
+    protected array $values = [];
 
     /**
      * {@inheritDoc}
      */
-    public function clearValues(): void
+    public function clear(): void
     {
         $this->values = [];
     }
@@ -21,17 +20,17 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function countValues(): int
+    public function count(): int
     {
-        return count((array)$this->values);
+        return count($this->values);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function deleteValue(string $key): void
+    public function delete(string $key): void
     {
-        if ($this->hasValue($key)) {
+        if ($this->has($key)) {
             unset($this->values[$key]);
         }
     }
@@ -39,7 +38,7 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function eachValue(callable $callback): void
+    public function each(callable $callback): void
     {
         foreach ($this->values as $key => $value) {
             call_user_func_array($callback, [
@@ -52,9 +51,9 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function getValue(string $key, $default = null)
+    public function get(string $key, mixed $default = null): mixed
     {
-        if ($this->hasValue($key)) {
+        if ($this->has($key)) {
             return $this->values[$key];
         }
 
@@ -64,15 +63,15 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function getValues(): array
+    public function getAll(): array
     {
-        return (array)$this->values;
+        return $this->values;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setValues(array $values): DataInterface
+    public function setAll(array $values): DataInterface
     {
         $this->values = $values;
 
@@ -82,7 +81,7 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function hasValue(string $key): bool
+    public function has(string $key): bool
     {
         return isset($this->values[$key]);
     }
@@ -90,11 +89,11 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function pullValue(string $key, $default = null)
+    public function pull(string $key, mixed $default = null): mixed
     {
-        if ($this->hasValue($key)) {
-            $value = $this->getValue($key);
-            $this->deleteValue($key);
+        if ($this->has($key)) {
+            $value = $this->get($key);
+            $this->delete($key);
             return $value;
         }
 
@@ -104,7 +103,7 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function replaceValues(array $values, bool $recursive = true): DataInterface
+    public function replace(array $values, bool $recursive = true): DataInterface
     {
         if ($recursive) {
             $this->values = array_replace_recursive($this->values, $values);
@@ -118,7 +117,7 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function setReferencedValues(array &$values): DataInterface
+    public function setAllReferenced(array &$values): DataInterface
     {
         $this->values = &$values;
 
@@ -128,9 +127,9 @@ trait DataTrait
     /**
      * {@inheritDoc}
      */
-    public function setValue(string $key, $value, bool $overwrite = true): DataInterface
+    public function set(string $key, mixed $value, bool $overwrite = true): DataInterface
     {
-        if ($overwrite || !$this->hasValue($key)) {
+        if ($overwrite || !$this->has($key)) {
             $this->values[$key] = $value;
         }
 

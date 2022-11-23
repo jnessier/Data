@@ -1,38 +1,36 @@
 <?php
 
-
 namespace Neoflow\Data;
 
 interface DataInterface
 {
-
     /**
      * Clear values.
      */
-    public function clearValues(): void;
+    public function clear(): void;
 
     /**
      * Count number of values.
      *
      * @return int
      */
-    public function countValues(): int;
+    public function count(): int;
 
     /**
      * Delete value by key.
      *
      * @param string $key Key as identifier of the value
      */
-    public function deleteValue(string $key): void;
+    public function delete(string $key): void;
 
     /**
      * Iterate trough values.
      *
      * @param callable $callback Callback for each key/value pair
      *
-     * @return mixed
+     * @return void
      */
-    public function eachValue(callable $callback): void;
+    public function each(callable $callback): void;
 
     /**
      * Get value by key.
@@ -42,14 +40,14 @@ interface DataInterface
      *
      * @return mixed
      */
-    public function getValue(string $key, $default = null);
+    public function get(string $key, mixed $default = null): mixed;
 
     /**
      * Get values as array.
      *
      * @return array
      */
-    public function getValues(): array;
+    public function getAll(): array;
 
     /**
      * Check whether value exists by key.
@@ -58,7 +56,7 @@ interface DataInterface
      *
      * @return bool
      */
-    public function hasValue(string $key): bool;
+    public function has(string $key): bool;
 
     /**
      * Pull value by key and delete it afterwards.
@@ -68,7 +66,7 @@ interface DataInterface
      *
      * @return mixed
      */
-    public function pullValue(string $key, $default = null);
+    public function pull(string $key, mixed $default = null): mixed;
 
     /**
      * Replace values by key. Existing values with similar keys will be overwritten.
@@ -78,7 +76,7 @@ interface DataInterface
      *
      * @return self
      */
-    public function replaceValues(array $values, bool $recursive = true): DataInterface;
+    public function replace(array $values, bool $recursive = true): DataInterface;
 
     /**
      * Set referenced array as values. Existing values will be overwritten.
@@ -87,7 +85,7 @@ interface DataInterface
      *
      * @return self
      */
-    public function setReferencedValues(array &$values): DataInterface;
+    public function setAllReferenced(array &$values): DataInterface;
 
     /**
      * Set value by key.
@@ -98,7 +96,7 @@ interface DataInterface
      *
      * @return self
      */
-    public function setValue(string $key, $value, bool $overwrite = true): DataInterface;
+    public function set(string $key, mixed $value, bool $overwrite = true): DataInterface;
 
     /**
      * Set array as values. Existing values will be overwritten.
@@ -107,5 +105,5 @@ interface DataInterface
      *
      * @return self
      */
-    public function setValues(array $values): DataInterface;
+    public function setAll(array $values): DataInterface;
 }

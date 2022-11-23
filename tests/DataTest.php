@@ -28,96 +28,96 @@ class DataTest extends TestCase
         ]);
     }
 
-    public function testClearValues(): void
+    public function testClear(): void
     {
-        $this->data->clearValues();
+        $this->data->clear();
 
-        $this->assertSame([], $this->data->getValues());
+        $this->assertSame([], $this->data->getAll());
     }
 
     public function testCount(): void
     {
-        $this->assertSame(3, $this->data->countValues());
+        $this->assertSame(3, $this->data->count());
     }
 
-    public function testDeleteValue(): void
+    public function testDelete(): void
     {
-        $this->data->deleteValue('a');
+        $this->data->delete('a');
 
-        $this->assertFalse($this->data->hasValue('a'));
+        $this->assertFalse($this->data->has('a'));
     }
 
     public function testEach(): void
     {
         $foobar = 'foobar';
-        $this->data->eachValue(function ($value, string $key) use ($foobar) {
-            $this->assertArrayHasKey($key, $this->data->getValues());
-            $this->assertContains($value, $this->data->getValues());
+        $this->data->each(function ($value, string $key) use ($foobar) {
+            $this->assertArrayHasKey($key, $this->data->getAll());
+            $this->assertContains($value, $this->data->getAll());
             $this->assertSame('foobar', $foobar);
         });
     }
 
-    public function testGetValue(): void
+    public function testGet(): void
     {
-        $this->assertSame('A', $this->data->getValue('a'));
-        $this->assertSame('default', $this->data->getValue('z', 'default'));
+        $this->assertSame('A', $this->data->get('a'));
+        $this->assertSame('default', $this->data->get('z', 'default'));
     }
 
-    public function testGetValues(): void
+    public function testGetAll(): void
     {
-        $this->assertIsArray($this->data->getValues());
+        $this->assertIsArray($this->data->getAll());
     }
 
-    public function testHasValue(): void
+    public function testHas(): void
     {
-        $this->assertTrue($this->data->hasValue('a'));
-        $this->assertFalse($this->data->hasValue('z'));
+        $this->assertTrue($this->data->has('a'));
+        $this->assertFalse($this->data->has('z'));
     }
 
-    public function testPullValue(): void
+    public function testPull(): void
     {
-        $this->assertSame('A', $this->data->pullValue('a'));
-        $this->assertSame('default', $this->data->pullValue('a', 'default'));
+        $this->assertSame('A', $this->data->pull('a'));
+        $this->assertSame('default', $this->data->pull('a', 'default'));
     }
 
-    public function testReplaceValues(): void
+    public function testReplace(): void
     {
-        $this->data->replaceValues([
+        $this->data->replace([
             'a' => 'SpecialA',
             'c' => [
                 'c-c' => []
             ]
         ], false);
 
-        $this->assertSame('SpecialA', $this->data->getValue('a'));
+        $this->assertSame('SpecialA', $this->data->get('a'));
         $this->assertSame([
             'b-A',
-        ], $this->data->getValue('b'));
+        ], $this->data->get('b'));
         $this->assertSame([
             'c-c' => []
-        ], $this->data->getValue('c'));
+        ], $this->data->get('c'));
     }
 
-    public function testReplaceValuesRecursively(): void
+    public function testReplaceRecursively(): void
     {
-        $this->data->replaceValues([
+        $this->data->replace([
             'a' => 'SpecialA',
             'c' => [
                 'c-c' => []
             ]
         ], true);
 
-        $this->assertSame('SpecialA', $this->data->getValue('a'));
+        $this->assertSame('SpecialA', $this->data->get('a'));
         $this->assertSame([
             'b-A',
-        ], $this->data->getValue('b'));
+        ], $this->data->get('b'));
         $this->assertSame([
             'c-a' => 'C-A',
             'c-b' => [
                 'c-b-a' => 'C-B-A'
             ],
             'c-c' => []
-        ], $this->data->getValue('c'));
+        ], $this->data->get('c'));
     }
 
     public function testSetReferencedValues(): void
@@ -125,21 +125,21 @@ class DataTest extends TestCase
         $values = [
             'a' => 'A'
         ];
-        $this->data->setReferencedValues($values);
-        $this->data->setValue('a', 'SpecialA');
+        $this->data->setAllReferenced($values);
+        $this->data->set('a', 'SpecialA');
 
-        $this->assertSame($values, $this->data->getValues());
+        $this->assertSame($values, $this->data->getAll());
     }
 
     public function testSetValue(): void
     {
-        $this->data->setValue('d', 'D');
+        $this->data->set('d', 'D');
 
-        $this->data->setValue('e', 'E', false);
-        $this->data->setValue('d', 'SpecialD', false);
+        $this->data->set('e', 'E', false);
+        $this->data->set('d', 'SpecialD', false);
 
-        $this->assertSame('D', $this->data->getValue('d'));
-        $this->assertSame('E', $this->data->getValue('e'));
+        $this->assertSame('D', $this->data->get('d'));
+        $this->assertSame('E', $this->data->get('e'));
     }
 
     public function testSetValues(): void
@@ -147,12 +147,12 @@ class DataTest extends TestCase
         $values = [
             'a' => 'A'
         ];
-        $this->data->setValues($values);
-        $this->data->setValue('a', 'SpecialA');
+        $this->data->setAll($values);
+        $this->data->set('a', 'SpecialA');
 
-        $this->assertNotSame($values, $this->data->getValues());
+        $this->assertNotSame($values, $this->data->getAll());
         $this->assertSame([
             'a' => 'SpecialA'
-        ], $this->data->getValues());
+        ], $this->data->getAll());
     }
 }

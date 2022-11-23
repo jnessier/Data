@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/Neoflow/Session.svg?branch=master&service=github)](https://travis-ci.org/Neoflow/Data)
 [![Coverage Status](https://coveralls.io/repos/github/Neoflow/Data/badge.svg?branch=master&service=github)](https://coveralls.io/github/Neoflow/Data?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/neoflow/data/v?service=github)](https://packagist.org/packages/neoflow/data)
-[![Total Downloads](https://poser.pugx.org/neoflow/data/downloads?service=github)](//packagist.org/packages/neoflow/data)
+[![Total Downloads](https://poser.pugx.org/neoflow/data/downloads?service=github)](https://packagist.org/packages/neoflow/data)
 [![License](https://poser.pugx.org/neoflow/data/license?service=github)](https://packagist.org/packages/neoflow/data)
 
 Data handler for arrays.
@@ -16,7 +16,7 @@ Data handler for arrays.
 - [License](#license)
 
 ## Requirement
-* PHP >= 7.3
+* PHP >= 8
 
 ## Installation
 Install package of the data handler via Composer...
@@ -36,44 +36,44 @@ $data = new Data([
 
 // Get value by key.
 $default = null; // Default value, when key doesn't exists
-$value = $data->getValue('key', $default);
+$value = $data->get('key', $default);
    
 // Pull value by key and delete it afterwards.
 $default = null; // Default value, when key doesn't exists
-$value = $data->pullValue('key', $default);
+$value = $data->pull('key', $default);
 
 // Set value by key.
 $overwrite = true; // Set FALSE to prevent overwrite existing value
-$data = $data->setValue('key', 'value', $overwrite);
+$data = $data->set('key', 'value', $overwrite);
 
 // Check whether value exists by key.
-$valueExists = $data->hasValue('key');
+$valueExists = $data->has('key');
    
 // Delete value by key.
-$data->deleteValue('key');
+$data->delete('key');
 
 // Count number of values.
-$numberOfValues = $data->countValues();
+$numberOfValues = $data->count();
 
-// Get values as array.
-$array = $data->getValues();
+// Get all values as array.
+$array = $data->getAll();
 
 // Iterate trough values.
-$data->eachValue(function ($value, string $key) {
+$data->each(function ($value, string $key) {
     // Callback for each key/value pair
 });
 
 // Clear values.
-$data = $data->clearValues();
+$data = $data->clear();
 
 // Replace values. Existing values with similar keys will be overwritten.
 $recursive = true; // Set FALSE to prevent recursive merge
-$data = $data->replaceValues([
+$data = $data->replace([
     // Array with key/value pairs
 ], $recursive);
 
 // Set array as values. Existing data will be overwritten.
-$data = $data->setValues([
+$data = $data->setAll([
     // Array with key/value pairs
 ]);
 
@@ -81,7 +81,7 @@ $data = $data->setValues([
 $values = [
     // Array with key/value pairs
 ];
-$data = $data->setReferencedValues($values);
+$data = $data->setAllReferenced($values);
 ```
 
 ## Limitations

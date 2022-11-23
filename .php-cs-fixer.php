@@ -1,11 +1,9 @@
 <?php
 
-// Define excludes
 use PhpCsFixer\Finder;
 
 $excludes = [];
 
-// Create finder
 $finder = (new Finder())
     ->exclude($excludes)
     ->in([
@@ -13,13 +11,11 @@ $finder = (new Finder())
         './tests',
     ]);
 
-// Create config
 return (new PhpCsFixer\Config())
     ->setCacheFile(__DIR__ . '/.php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PSR1' => true,
-        '@PSR2' => true,
+        '@PSR12' => true,
         'semicolon_after_instruction' => false,
     ])
     ->setFinder($finder);

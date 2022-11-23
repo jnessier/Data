@@ -25,12 +25,12 @@
     "run phpunit": "phpunit --configuration phpunit.xml.dist"
   },
   "require": {
-    "php": ">=7.3"
+    "php": ">=8.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.0",
     "phpunit/phpunit": "^9.5",
     "php-coveralls/php-coveralls": "^2.2",
-    "pds/skeleton": "^1.0"
+    "pds/skeleton": "^1.0",
+    "friendsofphp/php-cs-fixer": "^3.13"
   }
 }
