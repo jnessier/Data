@@ -1,6 +1,5 @@
 # Data
 [![Build Status](https://github.com/neoflow/data/workflows/Tests/badge.svg)](https://github.com/neoflow/data/actions?query=branch:4.x)
-[![Coverage Status](https://coveralls.io/repos/github/Neoflow/Data/badge.svg?branch=master&service=github)](https://coveralls.io/github/Neoflow/Data?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/neoflow/data/v?service=github)](https://packagist.org/packages/neoflow/data)
 [![Total Downloads](https://poser.pugx.org/neoflow/data/downloads?service=github)](https://packagist.org/packages/neoflow/data)
 [![License](https://poser.pugx.org/neoflow/data/license?service=github)](https://packagist.org/packages/neoflow/data)
