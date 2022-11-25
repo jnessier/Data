@@ -11,17 +11,20 @@ jobs:
 
       - uses: php-actions/composer@v6
 
-      - name: Run PHPUnit tests
-        uses: php-actions/phpunit@v3
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php_extensions: xdebug
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          args: --coverage-text --coverage-clover clover.xml
-        env:
-          XDEBUG_MODE: coverage
+          php-version: 8.0
+          coverage: xdebug
+
+      - name: Install dependencies with Composer
+        uses: ramsey/composer-install@v2
+
+      - name: Tests
+        run: vendor/bin/phpunit --coverage-clover clover.xml
 
       - name: Upload coverage results to Coveralls
+        if: matrix.analysis
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
