@@ -22,7 +22,11 @@
   "scripts": {
     "run php-cs-fixer": "php-cs-fixer fix",
     "run php-cs-fixer dry": "php-cs-fixer fix --dry-run",
-    "run phpunit": "phpunit --configuration tests/phpunit.xml --bootstrap vendor/autoload.php"
+    "run phpunit": "phpunit --configuration phpunit.xml",
+    "run phpunit coverage-text": [
+      "@putenv XDEBUG_MODE=coverage",
+      "phpunit --configuration phpunit.xml --coverage-text"
+    ]
   },
   "require": {
     "php": ">=8.0"

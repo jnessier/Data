@@ -1,5 +1,5 @@
-/.php-cs-fixer.cache
-/.phpunit.result.cache
+.php-cs-fixer.cache
+.phpunit.result.cache
 /.idea
 /vendor
 /tests/_coverage
