@@ -20,7 +20,7 @@ Data handler for arrays.
 ## Installation
 Install package of the data handler via Composer...
 ```bash
-composer require neoflow/data
+composer require jnessier/data
 ```
 ...or manually download the latest release from [here](https://github.com/Neoflow/Data/releases/).
 

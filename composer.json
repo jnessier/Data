@@ -1,5 +1,5 @@
 {
-  "name": "neoflow/data",
+  "name": "jnessier/data",
   "description": "Data handler for arrays.",
   "license": "MIT",
   "minimum-stability": "stable",
@@ -11,12 +11,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "Neoflow\\Data\\": "src/"
+      "DataHandler\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Neoflow\\Data\\Test\\": "tests/"
+      "DataHandler\\Test\\": "tests/"
     }
   },
   "scripts": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Neoflow\Data;
+namespace DataHandler;
 
 interface DataInterface
 {

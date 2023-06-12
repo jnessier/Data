@@ -1,8 +1,8 @@
 <?php
 
-namespace Neoflow\Data\Test;
+namespace DataHandler\Test;
 
-use Neoflow\Data\Data;
+use DataHandler\Data;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
