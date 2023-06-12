@@ -90,7 +90,7 @@ $data = $data->setAllReferenced($values);
 * No type check for values
 
 ## Contributors
-* Jonathan Nessier, [Neoflow](https://www.neoflow.ch)
+* Jonathan Nessier
 
 If you would like to see this library develop further, or if you want to support me or show me your appreciation, please
  donate any amount through PayPal. Thank you! :beers:
