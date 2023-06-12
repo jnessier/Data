@@ -1,12 +1,11 @@
 {
-  "name": "jnessier/data",
+  "name": "jnessier/data-handler",
   "description": "Data handler for arrays.",
   "license": "MIT",
   "minimum-stability": "stable",
   "authors": [
     {
-      "name": "Jonathan Nessier",
-      "homepage": "https://www.neoflow.ch"
+      "name": "Jonathan Nessier"
     }
   ],
   "autoload": {

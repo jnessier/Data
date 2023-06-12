@@ -20,9 +20,9 @@ Data handler for arrays.
 ## Installation
 Install package of the data handler via Composer...
 ```bash
-composer require jnessier/data
+composer require jnessier/data-handler
 ```
-...or manually download the latest release from [here](https://github.com/Neoflow/Data/releases/).
+...or manually download the latest release from [here](https://github.com/jnessier/DataHandler/releases/).
 
 ## Usage
 ```php
@@ -37,7 +37,7 @@ $data = new Data([
 $default = null; // Default value, when key doesn't exists
 $value = $data->get('key', $default);
    
-// Pull value by key and delete it afterwards.
+// Pull value by key and delete it afterward.
 $default = null; // Default value, when key doesn't exists
 $value = $data->pull('key', $default);
 
