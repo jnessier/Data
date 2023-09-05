@@ -1,5 +1,5 @@
 # Data handler
-[![Build Status](https://github.com/jnessier/data-handler/workflows/Tests/badge.svg)](https://github.com/jnessier/data-handler/actions?query=branch:4.x)
+[![Build Status](https://github.com/jnessier/DataHandler/workflows/Tests/badge.svg)](https://github.com/jnessier/DataHandler/actions?query=branch:4.x)
 [![Latest Stable Version](https://poser.pugx.org/jnessier/data-handler/v?service=github)](https://packagist.org/packages/jnessier/data-handler)
 [![Total Downloads](https://poser.pugx.org/jnessier/data-handler/downloads?service=github)](https://packagist.org/packages/jnessier/data-handler)
 [![License](https://poser.pugx.org/jnessier/data-handler/license?service=github)](https://packagist.org/packages/jnessier/data-handler)
