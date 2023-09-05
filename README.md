@@ -4,7 +4,7 @@
 [![Total Downloads](https://poser.pugx.org/jnessier/data-handler/downloads?service=github)](https://packagist.org/packages/jnessier/data-handler)
 [![License](https://poser.pugx.org/jnessier/data-handler/license?service=github)](https://packagist.org/packages/jnessier/data-handler)
 
-Data handler for arrays.
+Data handler for PHP arrays.
 
 ## Table of Contents
 - [Requirement](#requirement)
