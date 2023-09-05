@@ -15,7 +15,7 @@ Data handler for PHP arrays.
 - [License](#license)
 
 ## Requirement
-* PHP >= 8
+* PHP >= 8.1
 
 ## Installation
 Install package of the data handler via Composer...
