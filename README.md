@@ -1,8 +1,8 @@
-# Data
-[![Build Status](https://github.com/neoflow/data/workflows/Tests/badge.svg)](https://github.com/neoflow/data/actions?query=branch:4.x)
-[![Latest Stable Version](https://poser.pugx.org/neoflow/data/v?service=github)](https://packagist.org/packages/neoflow/data)
-[![Total Downloads](https://poser.pugx.org/neoflow/data/downloads?service=github)](https://packagist.org/packages/neoflow/data)
-[![License](https://poser.pugx.org/neoflow/data/license?service=github)](https://packagist.org/packages/neoflow/data)
+# Data handler
+[![Build Status](https://github.com/jnessier/data-handler/workflows/Tests/badge.svg)](https://github.com/jnessier/data-handler/actions?query=branch:4.x)
+[![Latest Stable Version](https://poser.pugx.org/jnessier/data-handler/v?service=github)](https://packagist.org/packages/jnessier/data-handler)
+[![Total Downloads](https://poser.pugx.org/jnessier/data-handler/downloads?service=github)](https://packagist.org/packages/jnessier/data-handler)
+[![License](https://poser.pugx.org/jnessier/data-handler/license?service=github)](https://packagist.org/packages/jnessier/data-handler)
 
 Data handler for arrays.
 
@@ -26,7 +26,7 @@ composer require jnessier/data-handler
 
 ## Usage
 ```php
-use Neoflow\Data\Data;
+use DataHandler\Data;
 
 // Create new data handler.
 $data = new Data([
@@ -90,7 +90,7 @@ $data = $data->setAllReferenced($values);
 * No type check for values
 
 ## Contributors
-* Jonathan Nessier
+* Jonathan Nessier (jnessier)
 
 If you would like to see this library develop further, or if you want to support me or show me your appreciation, please
  donate any amount through PayPal. Thank you! :beers:
